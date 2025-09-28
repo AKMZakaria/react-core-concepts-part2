@@ -1,10 +1,17 @@
 import './App.css'
 import Counter from './Counter'
 import Batsman from './Batsman'
-import Users from '../Users'
+import Users from './Users'
 import { Suspense } from 'react'
-import Friends from '../Friends'
-import Posts from '../Posts'
+import Friends from './Friends'
+import Posts from './Posts'
+import Players from './Players'
+import ToDos from './ToDos'
+
+const fetchTodos = async () => {
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos')
+  return res.json();
+}
 
 
 const fetchUsers = fetch('https://jsonplaceholder.typicode.com/users')
@@ -17,12 +24,14 @@ const fetchFriends = async () => {
 
 }
 
-const fetchPosts = async()=>{
+const fetchPosts = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts')
   return res.json();
 }
 
 function App() {
+
+  const toDoPromise = fetchTodos();
 
   const postPromise = fetchPosts();
 
@@ -43,6 +52,12 @@ function App() {
 
   return (
     <>
+
+      <Suspense fallback={<p>todos are coming...</p>}>
+        <ToDos toDoPromise={toDoPromise}></ToDos>
+      </Suspense>
+
+      <Players></Players>
 
       <Suspense fallback={<p>Posts are coming...</p>}>
         <Posts postPromise={postPromise}></Posts>

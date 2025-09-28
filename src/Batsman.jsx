@@ -38,9 +38,6 @@ export default function Batsman() {
 
             {msg}
 
-
-            
-
             <h1>Score: {runs}</h1>
             <button onClick={handleSingle}>singles</button>
             <button onClick={handleFour}>Four</button>
